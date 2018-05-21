@@ -7,8 +7,8 @@
 int main() {
     printf("Hello, World!\n");
     int ages[] = {18,20};
-    Series news = SeriesCreate(NULL, "Prison Break", 40, "Drama", &ages,35);
-    List new = ListSeriesCopy(news);
+    //Series news = SeriesCreate(NULL, "Prison Break", 40, "Drama", &ages,35);
+    //List new = ListSeriesCopy(news);
     //Series new2 = (Series) new;
     /*
             UserStatus userStatus1;

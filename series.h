@@ -19,6 +19,5 @@ char* SeriesGetGenre (Series series);
 int SeriesGetEpisodeNumber (Series series);
 int SeriesGetEpisodeDuration (Series series);
 int* SeriesGetAges (Series series);
-ListElement ListSeriesCopy (ListElement series);
 
 #endif /* SERIES_H_ */

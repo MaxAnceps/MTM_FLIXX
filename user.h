@@ -20,15 +20,15 @@ typedef enum userStatus {
 
 
 User UserCreate( UserStatus* status,char* user_name, unsigned int user_age);
-void  UserDestroy(User user);
+UserStatus UserDestroy(User user);
 char* UserGetName(UserStatus* status,User user);
 int   UserGetAge(UserStatus* status,User user);
-List  GetUserSeriesList(User user);
-Set  DriverGetFriendList(User user);
+Set  UserGetSeriesSet(User user);
+Set  UserGetFriendSet(User user);
 UserStatus  UserAddFriend(User user_that_add , User user_to_add);
-void  UserDeleteFriend(User user_that_delete, User user_to_delete);
+UserStatus  UserDeleteFriend(User user_that_delete, User user_to_delete);
 //void UserAddFavoriteSeries(User user,Sereies series );
 //void UserDeleteSeriesFromFavorites(User user,Series series);
-
+void UserPrintFriendlist(User user);///////////////
 
 #endif /* MTM_FLIX_USER_H */

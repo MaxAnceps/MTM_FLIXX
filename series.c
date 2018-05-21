@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "series.h"
 #include "list.h"
 
@@ -12,17 +13,15 @@ struct series_t{
     char* name;
     int episodes_num;
     char* genre;
-    int ages[2];
+    int* ages;
     int episodes_dur;
 };
 
 static char *SeriesStringCopy(const char *str);
 
 Series SeriesCreate (SeriesStatus* status, const char* name, int episodes_num, const char* genre, int* ages, int episode_duration){
-    if ((!name)||(!ages)||(!genre)){
-        *status = SERIES_NULL_ARGUMENT;
-        return NULL;
-    }
+    assert (name);
+    assert (genre);
 
     Series new_series = malloc(sizeof(*new_series));
     if (!new_series){
@@ -45,8 +44,21 @@ Series SeriesCreate (SeriesStatus* status, const char* name, int episodes_num, c
         return NULL;
     }
 
-    new_series->ages[0] = ages[0];
-    new_series->ages[1] = ages[1];
+    if(!ages){
+        new_series->ages=NULL;
+    }
+    else {
+        new_series->ages=malloc(2* sizeof(int));
+        if (!(new_series->ages)){
+            *status = SERIES_MEMORY_ERROR;
+            free (new_series->name);
+            free (new_series->genre);
+            free (new_series);
+            return NULL;
+        }
+        new_series->ages[0] = ages[0];
+        new_series->ages[1] = ages[1];
+    }
     new_series->episodes_dur = episode_duration;
     new_series->episodes_num = episodes_num;
     if (!new_series->genre) {
@@ -104,12 +116,4 @@ int* SeriesGetAges (Series series){
         return NULL;
     }
     return series->ages;
-}
-
-ListElement ListSeriesCopy (ListElement series){
-    Series copy  = SeriesCreate(NULL,SeriesGetName(series),SeriesGetEpisodeNumber(series),SeriesGetGenre(series),SeriesGetAges(series),SeriesGetEpisodeDuration(series));
-    if (!copy){
-        return NULL;
-    }
-    return copy;
 }
