@@ -15,6 +15,7 @@ struct mtmFlix_t {
     List users;
 };
 
+
 static bool mtmFlixStringInvalidName(const char *name);
 static int* mtmFlixSeriesFixedAges (int* ages);
 static int isBigger (int a, int b);
